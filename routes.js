@@ -11,7 +11,7 @@ import { createDrawerNavigator, DrawerItems } from 'react-navigation';
 
 // screens
 import { Block, Icon, Text } from 'galio-framework';
-import Article from './src/screens/Article';
+import Profile from './src/screens/Profile/index';
 import Posts from './src/screens/Posts/index';
 import Login from './src/screens/Login';
 import News from './src/screens/News';
@@ -99,8 +99,8 @@ const screens = {
       )
     }
   },
-  Article: {
-    screen: Article,
+  Profile: {
+    screen: Profile,
     navigationOptions: {
       drawerLabel: 'Perfil',
       drawerIcon: props => (

@@ -38,6 +38,13 @@ export const Category = styled.Text`
   margin-top: 2px;
 `;
 
+export const City = styled.Text`
+  font-size: 12px;
+  color: #666;
+  margin-top: 2px;
+  margin-left: 5px;
+`;
+
 export const Description = styled.Text.attrs({
   numberOfLines: 1
 })`

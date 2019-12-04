@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Platform, TouchableOpacity } from 'react-native';
 
-import { Block, NavBar, Icon } from 'galio-framework';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+import { Block, NavBar } from 'galio-framework';
 
 import api from '../../services/api';
 
@@ -13,7 +15,8 @@ import {
   Avatar,
   Title,
   Info,
-  Category
+  Category,
+  City
 } from './styles';
 
 export default function Cards({ navigation }) {
@@ -33,7 +36,7 @@ export default function Cards({ navigation }) {
         title="Listagem"
         left={
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
-            <Icon name="menu" family="feather" size={16} color={'#000'} />
+            <Icon name="navicon" size={16} color={'#666'} />
           </TouchableOpacity>
         }
         style={Platform.OS === 'android' ? { marginTop: 16 } : null}
@@ -42,14 +45,21 @@ export default function Cards({ navigation }) {
         data={posts}
         keyExtractor={keyPost => String(keyPost._id)}
         renderItem={({ item }) => (
-          <CardList>
-            <Avatar source={{ url: item.thumbnail_url }} />
-            <Info>
-              <Title>{item.company}</Title>
-              <Description>{item.description}</Description>
-              <Category>{item.category}</Category>
-            </Info>
-          </CardList>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Profile', { itemId: item._id })}
+          >
+            <CardList>
+              <Avatar source={{ url: item.thumbnail_url }} />
+              <Info>
+                <Title>{item.company}</Title>
+                <Description>{item.description}</Description>
+                <Category>{item.category}</Category>
+                <Icon name="map-marker" size={13} color={'#666'}>
+                  <City>{item.city}</City>
+                </Icon>
+              </Info>
+            </CardList>
+          </TouchableOpacity>
         )}
       />
     </Block>
