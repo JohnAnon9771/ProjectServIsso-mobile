@@ -1,5 +1,3 @@
 {
-  "singleQuote": true,
-  "trailingComma": "es6",
-  "proseWrap": "always"
+  "singleQuote": true
 }
