@@ -1,10 +1,18 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
+import styled from 'styled-components/native';
+
 import theme from '../../theme';
 import Constants from 'expo-constants';
 
 const { statusBarHeight } = Constants;
 const { width, height } = Dimensions.get('screen');
+
+export const DescriptionProfile = styled.Text`
+  margin: 10px;
+  font-size: 16px;
+  color: #000;
+`;
 
 export const styles = StyleSheet.create({
   header: {

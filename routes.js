@@ -14,8 +14,7 @@ import { Block, Icon, Text } from 'galio-framework';
 import Profile from './src/screens/Profile/index';
 import Posts from './src/screens/Posts/index';
 import Login from './src/screens/Login';
-import News from './src/screens/News';
-import Register from './src/screens/Register';
+import About from './src/screens/News';
 
 import theme from './src/theme';
 
@@ -104,13 +103,17 @@ const screens = {
     navigationOptions: {
       drawerLabel: 'Perfil',
       drawerIcon: props => (
-        <MenuIcon name="flag" family="font-awesome" focused={props.focused} />
+        <MenuIcon
+          name="user-circle"
+          family="font-awesome"
+          focused={props.focused}
+        />
       )
     }
   },
 
-  News: {
-    screen: News,
+  About: {
+    screen: About,
     navigationOptions: {
       drawerLabel: 'Sobre',
       drawerIcon: props => (
@@ -126,16 +129,7 @@ const screens = {
   Login: {
     screen: Login,
     navigationOptions: {
-      drawerLabel: 'Login Screen',
-      drawerIcon: props => (
-        <MenuIcon name="flag" family="font-awesome" focused={props.focused} />
-      )
-    }
-  },
-  Register: {
-    screen: Register,
-    navigationOptions: {
-      drawerLabel: 'Register Screen',
+      drawerLabel: 'Entrar',
       drawerIcon: props => (
         <MenuIcon name="flag" family="font-awesome" focused={props.focused} />
       )

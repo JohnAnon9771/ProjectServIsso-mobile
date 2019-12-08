@@ -74,14 +74,14 @@ Author.propsTypes = {
   caption: PropTypes.string
 };
 
-const News = props => (
+export default function Sobre({ navigation }) {
   <Block safe flex>
     <NavBar
-      title="News"
+      title="Sobre"
       titleStyle={{ alignSelf: 'flex-start' }}
       leftIconColor={theme.COLORS.MUTED}
       left={
-        <TouchableOpacity onPress={() => props.navigation.openDrawer()}>
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <Icon
             name="menu"
             family="feather"
@@ -96,7 +96,7 @@ const News = props => (
           key="right-options"
           color="transparent"
           style={styles.button}
-          onPress={() => props.navigation.openDrawer()}
+          onPress={() => navigation.openDrawer()}
         >
           <Icon
             size={theme.SIZES.BASE * 1.0625}
@@ -109,7 +109,7 @@ const News = props => (
           key="right-search"
           color="transparent"
           style={styles.button}
-          onPress={() => props.navigation.openDrawer()}
+          onPress={() => navigation.openDrawer()}
         >
           <Icon
             size={theme.SIZES.BASE * 1.0625}
@@ -159,8 +159,8 @@ const News = props => (
         </Block>
       </Block>
     </ScrollView>
-  </Block>
-);
+  </Block>;
+}
 
 const styles = StyleSheet.create({
   article: {
@@ -198,5 +198,3 @@ const styles = StyleSheet.create({
     marginBottom: theme.SIZES.BASE
   }
 });
-
-export default News;

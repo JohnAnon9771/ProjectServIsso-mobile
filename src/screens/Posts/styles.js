@@ -14,9 +14,6 @@ export const CardList = styled.View`
   flex-direction: row;
   align-items: center;
   border-color: #ddd;
-  shadow-color: #000;
-  shadow-opacity: 0.8;
-  shadow-radius: 2;
   elevation: 1;
 `;
 
@@ -35,14 +32,13 @@ export const Info = styled.View`
 export const Category = styled.Text`
   font-size: 12px;
   color: #666;
-  margin-top: 2px;
+  font-style: italic;
 `;
 
 export const City = styled.Text`
   font-size: 12px;
   color: #666;
-  margin-top: 2px;
-  margin-left: 5px;
+  align-self: flex-end;
 `;
 
 export const Description = styled.Text.attrs({
@@ -50,10 +46,18 @@ export const Description = styled.Text.attrs({
 })`
   font-size: 12px;
   color: #666;
-  margin-top: 2px;
 `;
 export const Title = styled.Text`
   font-size: 16px;
   color: #666;
   margin-top: 2px;
+`;
+
+export const SearchInput = styled.TextInput`
+  padding: 7px;
+  border-color: #ccc;
+  border-width: 1px;
+  border-radius: 23px;
+  margin: 7px;
+  align-items: center;
 `;

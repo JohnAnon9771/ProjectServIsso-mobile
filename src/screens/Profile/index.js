@@ -1,36 +1,31 @@
-import React from 'react';
-import {
-  Image,
-  StatusBar,
-  ScrollView,
-  TouchableOpacity,
-  Dimensions,
-  StyleSheet
-} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, StatusBar, TouchableOpacity, Dimensions } from 'react-native';
 
-// import Constants from 'expo-constants';
+import { Linking } from 'expo';
+
+import api from '../../services/api';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 // galio components
-import { Block, Text, NavBar } from 'galio-framework';
-
-import theme from '../../theme';
-
-// const { statusBarHeight } = Constants;
+import { Block, Text, NavBar, Button } from 'galio-framework';
 const { width, height } = Dimensions.get('screen');
-import styles from './styles';
 
-const bgImage =
-  'https://images.unsplash.com/photo-1516651029879-bcd191e7d33b?fit=crop&w=900&q=80';
+import { styles, DescriptionProfile } from './styles';
 
 export default function Profile({ navigation }) {
-  // useEffect(() => {
-  //     effect
-  //     return () => {
-  //         cleanup
-  //     };
-  // }, [])
+  const [professionals, setProfessionals] = useState('');
+  useEffect(() => {
+    async function getIdUser() {
+      const response = await api.get(`/show/${navigation.getParam('itemId')}`);
+      setProfessionals(response.data);
+    }
+    getIdUser();
+  }, []);
+
+  function handleCall() {
+    const number = Number(professionals.phoneNumber);
+    Linking.openURL(`tel:${number}`);
+  }
   return (
     <Block>
       <StatusBar barStyle="light-content" />
@@ -46,7 +41,9 @@ export default function Profile({ navigation }) {
       </Block>
 
       <Image
-        source={{ uri: bgImage }}
+        source={{
+          uri: professionals.photo_url
+        }}
         resizeMode="cover"
         style={{
           width,
@@ -54,74 +51,25 @@ export default function Profile({ navigation }) {
         }}
       />
 
-      <Block center style={{ marginTop: -theme.SIZES.BASE * 2 }}>
-        <Block flex style={styles.header}>
+      <Block center style={{ marginTop: -16 * 2 }}>
+        <Block flsex style={styles.header}>
           <Block>
-            <Text size={theme.SIZES.BASE * 1.875}>
-              I would happily watch a TV show about crabs
-            </Text>
+            <Text size={16 * 1.875}>{professionals.name}</Text>
             <Text
               muted
               t
-              size={theme.SIZES.BASE * 0.875}
-              style={{ marginTop: theme.SIZES.BASE, fontWeight: '500' }}
+              size={16 * 0.875}
+              style={{ marginTop: 2, fontWeight: '500' }}
             >
-              InterBlocking this super star
+              {professionals.city}
             </Text>
           </Block>
-          <ScrollView style={{ flex: 1 }}>
-            <Text style={styles.text}>
-              You should totally like check this out, ok? Why would you use
-              another UI library when you have so many components written by
-              Creative Tim and the whole React Native community. Galio was
-              created by developers for developers.
-            </Text>
-            <Text style={styles.text}>
-              A lot of Bacon. I'd really like to eat like a LOT of Bacon .
-            </Text>
-          </ScrollView>
+          <DescriptionProfile>{professionals.description}</DescriptionProfile>
+          <Button round color="success" onPress={() => handleCall()}>
+            <Icon name="whatsapp" size={30} color={'#fff'} />
+          </Button>
         </Block>
       </Block>
     </Block>
   );
 }
-
-// const styles = StyleSheet.create({
-//   header: {
-//     backgroundColor: theme.COLORS.WHITE,
-//     borderTopLeftRadius: theme.SIZES.BASE * 2,
-//     borderTopRightRadius: theme.SIZES.BASE * 2,
-//     paddingVertical: theme.SIZES.BASE * 2,
-//     paddingHorizontal: theme.SIZES.BASE * 1.5,
-//     width
-//   },
-//   navbar: {
-//     top: statusBarHeight,
-//     left: 0,
-//     right: 0,
-//     zIndex: 9999,
-//     position: 'absolute'
-//   },
-//   stats: {
-//     borderWidth: 0,
-//     width: width - theme.SIZES.BASE * 2,
-//     height: theme.SIZES.BASE * 4,
-//     marginVertical: theme.SIZES.BASE * 0.875
-//   },
-//   title: {
-//     justifyContent: 'center',
-//     paddingLeft: theme.SIZES.BASE / 2
-//   },
-//   avatar: {
-//     width: theme.SIZES.BASE * 2.5,
-//     height: theme.SIZES.BASE * 2.5,
-//     borderRadius: theme.SIZES.BASE * 1.25
-//   },
-//   middle: {
-//     justifyContent: 'center'
-//   },
-//   text: {
-//     fontSize: theme.SIZES.FONT * 0.875,
-//     lineHeight: theme.SIZES.FONT * 1.25
-//   }
-// });
