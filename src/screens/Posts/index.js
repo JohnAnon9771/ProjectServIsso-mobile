@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, TouchableOpacity, View } from 'react-native';
+import { Platform, TouchableOpacity, AsyncStorage } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Block, NavBar } from 'galio-framework';
+import { SearchBar } from 'react-native-elements';
+
 import api from '../../services/api';
 
 // Style
@@ -17,6 +19,7 @@ import {
   City,
   SearchInput
 } from './styles';
+import { node } from 'prop-types';
 
 export default function Cards({ navigation }) {
   const [posts, setPosts] = useState([]);
@@ -38,7 +41,6 @@ export default function Cards({ navigation }) {
     }
     getUserFiltered();
   }, [search]);
-
   return (
     <Block safe flex style={{ backgroundColor: '#fff' }}>
       <NavBar
@@ -50,14 +52,14 @@ export default function Cards({ navigation }) {
         }
         style={Platform.OS === 'android' ? { marginTop: 16 } : null}
       />
-      <View>
-        <SearchInput
-          placeholder="Pesquise a categoria..."
-          onChangeText={search => setSearch(search)}
-          underlineColorAndroid="transparent"
-        />
-        <Icon name="search" size={16} color="#666" />
-      </View>
+      <SearchBar
+        round
+        searchIcon={{ size: 24 }}
+        onChangeText={search => setSearch(search)}
+        placeholder="Pesquise a categoria aqui..."
+        value={search}
+        platform={Platform.OS === 'android' ? 'android' : 'ios'}
+      />
 
       <Listining
         data={!search ? posts : filter}

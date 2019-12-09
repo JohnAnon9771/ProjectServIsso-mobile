@@ -55,6 +55,9 @@ export default function Profile({ navigation }) {
         <Block flsex style={styles.header}>
           <Block>
             <Text size={16 * 1.875}>{professionals.name}</Text>
+            <Text muted t size={13 * 0.875} style={{ fontWeight: '500' }}>
+              {professionals.email}
+            </Text>
             <Text
               muted
               t
