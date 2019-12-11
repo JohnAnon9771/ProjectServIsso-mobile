@@ -6,7 +6,7 @@ import {
   Platform,
   AsyncStorage
 } from 'react-native';
-
+// import { Common } from "react-navigation";
 import api from '../../services/api';
 
 // galio component

@@ -6,19 +6,27 @@ import {
   ScrollView,
   SafeAreaView,
   Platform,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from 'react-native';
 
 import api from './src/services/api';
 
-import { createDrawerNavigator, DrawerItems } from 'react-navigation';
+import {
+  createDrawerNavigator,
+  DrawerItems,
+  createStackNavigator
+} from 'react-navigation';
+
+import { TOKEN_KEY } from './src/services/auth';
 
 // screens
-import { Block, Icon, Text } from 'galio-framework';
+import { Block, Icon, Text, Button } from 'galio-framework';
 import Profile from './src/screens/Profile/index';
 import Posts from './src/screens/Posts/index';
 import Login from './src/screens/SignIn/index';
-import About from './src/screens/News';
+import Register from './src/screens/SignUp/index';
+import About from './src/screens/About/index';
 
 function GalioDrawer(props) {
   const [user, setUser] = useState('');
@@ -28,26 +36,44 @@ function GalioDrawer(props) {
       setUser(user.data);
     }
     getUserToken();
-  }, []);
-
-  console.log(user);
+  }, [user]);
   return (
     <SafeAreaView
       style={styles.drawer}
       forceInset={{ top: 'always', horizontal: 'never' }}
     >
-      <TouchableOpacity onPress={() => props.navigation.push('Profile')}>
+      <TouchableOpacity
+        onPress={() =>
+          props.navigation.navigate('Profile', { itemId: user._id })
+        }
+      >
         <Block space="between" row style={styles.header}>
           <Block flex={0.3}>
-            <Image source={{ uri: user.photo_url }} style={styles.avatar} />
+            <Image
+              source={{
+                uri: !user.photo_url
+                  ? 'https://img.icons8.com/cotton/64/000000/name--v2.png'
+                  : user.photo_url
+              }}
+              style={styles.avatar}
+            />
           </Block>
           <Block flex style={styles.middle}>
-            <Text size={16 * 0.875}>{user.name}</Text>
+            <Text size={16 * 0.875}>{!user.name ? 'UNKNOWN' : user.name}</Text>
             <Text muted size={16 * 0.875}>
-              {user.email}
+              {!user.email ? 'UNKNOWN' : user.email}
             </Text>
           </Block>
         </Block>
+        {/* <Button
+        onPress={async () => {
+          await AsyncStorage.removeItem(TOKEN_KEY);
+          setUser(false);
+          props.navigation.closeDrawer();
+        }}
+      >
+        Sair
+      </Button> */}
       </TouchableOpacity>
       <ScrollView>
         <DrawerItems {...props} />
@@ -144,6 +170,20 @@ const screens = {
       drawerIcon: props => (
         <MenuIcon
           name="sign-in"
+          family="font-awesome"
+          focused={props.focused}
+        />
+      )
+    }
+  },
+
+  Register: {
+    screen: Register,
+    navigationOptions: {
+      drawerLabel: 'Cadastrar',
+      drawerIcon: props => (
+        <MenuIcon
+          name="user-plus"
           family="font-awesome"
           focused={props.focused}
         />

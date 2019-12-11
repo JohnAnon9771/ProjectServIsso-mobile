@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Image, StatusBar, TouchableOpacity, Dimensions } from 'react-native';
+import {
+  Image,
+  StatusBar,
+  TouchableOpacity,
+  Dimensions,
+  AsyncStorage
+} from 'react-native';
 
 import { Linking } from 'expo';
 
 import api from '../../services/api';
+import { TOKEN_KEY } from '../../services/auth';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 // galio components
@@ -13,6 +20,7 @@ const { width, height } = Dimensions.get('screen');
 import { styles, DescriptionProfile } from './styles';
 
 export default function Profile({ navigation }) {
+  const [user, setUser] = useState(false);
   const [professionals, setProfessionals] = useState('');
   useEffect(() => {
     async function getIdUser() {
@@ -22,6 +30,14 @@ export default function Profile({ navigation }) {
     getIdUser();
   }, []);
 
+  useEffect(() => {
+    async function getUserToken() {
+      const user = await api.get('/home');
+      setUser(user.data);
+    }
+    getUserToken();
+  }, [user]);
+  const userId = navigation.getParam('itemId');
   function handleCall() {
     const number = Number(professionals.phoneNumber);
     Linking.openURL(`tel:${number}`);
@@ -68,9 +84,20 @@ export default function Profile({ navigation }) {
             </Text>
           </Block>
           <DescriptionProfile>{professionals.description}</DescriptionProfile>
-          <Button round color="success" onPress={() => handleCall()}>
-            <Icon name="whatsapp" size={30} color={'#fff'} />
-          </Button>
+          {userId !== user._id ? (
+            <Button round color="success" onPress={() => handleCall()}>
+              <Icon name="whatsapp" size={30} color={'#fff'} />
+            </Button>
+          ) : (
+            <Button
+              onPress={async () => {
+                await AsyncStorage.removeItem(TOKEN_KEY);
+                navigation.navigate('Home');
+              }}
+            >
+              Sair
+            </Button>
+          )}
         </Block>
       </Block>
     </Block>

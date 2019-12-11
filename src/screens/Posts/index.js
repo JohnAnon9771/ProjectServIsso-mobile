@@ -32,7 +32,7 @@ export default function Cards({ navigation }) {
       setPosts(response.data);
     }
     getUser();
-  }, []);
+  }, [posts]);
 
   useEffect(() => {
     async function getUserFiltered() {
@@ -56,7 +56,7 @@ export default function Cards({ navigation }) {
         round
         searchIcon={{ size: 24 }}
         onChangeText={search => setSearch(search)}
-        placeholder="Pesquise a categoria aqui..."
+        placeholder="Pesquise a profissão aqui..."
         value={search}
         platform={Platform.OS === 'android' ? 'android' : 'ios'}
       />
