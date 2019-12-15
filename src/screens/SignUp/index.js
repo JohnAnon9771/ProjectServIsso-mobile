@@ -29,16 +29,17 @@ export default function Register({ navigation }) {
   const [photo, setImage] = useState(null);
 
   async function handleSignUp() {
-    const response = await api.post('/', {
-      name,
-      email,
-      pwd,
-      profession,
-      description,
-      phoneNumber,
-      city
-      // photo
-    });
+    const data = new FormData();
+
+    data.append('name', name);
+    data.append('email', email);
+    data.append('pwd', pwd);
+    data.append('profession', profession);
+    data.append('description', description);
+    data.append('city', city);
+    data.append('phoneNumber', phoneNumber);
+
+    const response = await api.post('/', data);
 
     if (!name || !email || !pwd || !profession || !phoneNumber || !city) {
       setError('Preencha todos os campos');
@@ -61,11 +62,18 @@ export default function Register({ navigation }) {
       allowsEditing: true,
       aspect: [16, 9]
     });
+
+    let localUri = result.uri;
+    let filename = localUri.split('/').pop();
+    let match = /\.(\w+)$/.exec(filename);
+    let type = match ? `image/${match[1]}` : `image`;
+
     if (!result.cancelled) {
-      setImage(result);
+      setImage({ originalname: filename, mimetype: type });
+      data.append('photo', { originalname: filename, mimetype: type });
     }
   }
-  console.log(photo);
+
   return (
     <Block safe flex style={{ backgroundColor: '#fff' }}>
       <Container>
@@ -121,7 +129,9 @@ export default function Register({ navigation }) {
               placeholder="Cidade em que atua..."
               onChangeText={city => setCity(city)}
             />
-            <Button onPress={() => selectImage()}>Imagem de perfil</Button>
+            <Button onPress={() => selectImage()}>
+              {photo ? photo.originalname : 'Imagem de perfil'}
+            </Button>
           </Content>
           <Button round onPress={() => handleSignUp()}>
             <Text center color={'#fff'}>

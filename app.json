@@ -1,31 +1,26 @@
 {
   "expo": {
-    "name": "galio-native-kit",
-    "description": "Build amazing apps in one codebase. //wip from sdk30 to sdk33",
-    "slug": "galio-native-kit",
+    "name": "ServIsso?",
+    "slug": "ServIsso",
     "privacy": "public",
     "sdkVersion": "35.0.0",
-    "platforms": [
-      "ios",
-      "android"
-    ],
+    "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon.ico",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#FE2472"
+      "image": "./assets/servisso.png",
+      "backgroundColor": "#fff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
-    "githubUrl": "https://github.com/galio-org/galio"
+    "android": {
+      "package": "com.servisso.servisso"
+    }
   }
 }

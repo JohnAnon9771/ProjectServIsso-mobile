@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Alert,
   Dimensions,
   KeyboardAvoidingView,
   Platform,
-  AsyncStorage
+  AsyncStorage,
+  Image
 } from 'react-native';
+import { Linking } from 'expo';
 // import { Common } from "react-navigation";
 import api from '../../services/api';
 
@@ -51,21 +53,7 @@ export default function SignIn({ navigation }) {
           style={{
             marginTop: 16 * 1.875
           }}
-        >
-          <Text
-            muted
-            center
-            size={16 * 0.875}
-            style={{ paddingHorizontal: 16 * 2.3 }}
-          >
-            This is the perfect place to write a short description of this step
-            and even the next steps ahead
-          </Text>
-
-          <Text muted center size={16 * 0.875}>
-            or be classical
-          </Text>
-        </Block>
+        ></Block>
 
         <Block flex={2} center space="evenly">
           <Block flex={2}>
@@ -103,7 +91,7 @@ export default function SignIn({ navigation }) {
             <Button
               color="transparent"
               shadowless
-              onPress={() => navigation.navigate('Register')}
+              onPress={() => Linking.openURL('https://servisso.herokuapp.com/')}
             >
               <Text center size={16 * 0.75}>
                 {'Não tem uma conta? Cadastre-se'}

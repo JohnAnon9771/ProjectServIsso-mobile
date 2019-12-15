@@ -19,10 +19,9 @@ import {
   City,
   SearchInput
 } from './styles';
-import { node } from 'prop-types';
 
 export default function Cards({ navigation }) {
-  const [posts, setPosts] = useState([]);
+  const [data, setPosts] = useState([]);
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState([]);
 
@@ -32,7 +31,7 @@ export default function Cards({ navigation }) {
       setPosts(response.data);
     }
     getUser();
-  }, [posts]);
+  }, [data]);
 
   useEffect(() => {
     async function getUserFiltered() {
@@ -41,6 +40,7 @@ export default function Cards({ navigation }) {
     }
     getUserFiltered();
   }, [search]);
+
   return (
     <Block safe flex style={{ backgroundColor: '#fff' }}>
       <NavBar
@@ -62,7 +62,7 @@ export default function Cards({ navigation }) {
       />
 
       <Listining
-        data={!search ? posts : filter}
+        data={!search ? data : filter}
         keyExtractor={keyPost => String(keyPost._id)}
         renderItem={({ item }) => (
           <TouchableOpacity

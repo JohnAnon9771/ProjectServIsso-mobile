@@ -1,7 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
-  Image,
   StyleSheet,
   ScrollView,
   Platform,
@@ -11,192 +9,79 @@ import {
 import Constants from 'expo-constants';
 
 // Galio components
-import { Button, Block, Card, Text, Icon, NavBar } from 'galio-framework';
-import theme from '../../theme';
+import { Block, Text, Icon, NavBar } from 'galio-framework';
 
-const Author = props => (
-  <Block row shadow middle space="between" style={styles.author}>
-    <Block flex={0.25}>
-      <Image source={{ uri: props.avatar }} style={styles.avatar} />
-    </Block>
-    <Block flex={0.7} style={styles.middle}>
-      <Text style={{ fontWeight: '500' }}>{props.title}</Text>
-      <Text p muted>
-        {props.caption}
-      </Text>
-    </Block>
-    <Block flex={0.5} row middle space="around">
-      <Block row middle>
-        <Icon
-          name="eye"
-          family="material-community"
-          color={theme.COLORS.MUTED}
-          size={theme.SIZES.FONT * 0.8}
-        />
-        <Text
-          size={theme.SIZES.FONT * 0.7}
-          p
-          muted
-          style={{ marginLeft: theme.SIZES.FONT * 0.25 }}
-        >
-          25.6k
-        </Text>
-      </Block>
-      <Block row middle>
-        <Icon
-          name="heart-outline"
-          family="material-community"
-          color={theme.COLORS.MUTED}
-          size={theme.SIZES.FONT * 0.8}
-        />
-        <Text
-          size={theme.SIZES.FONT * 0.7}
-          p
-          muted
-          style={{ marginLeft: theme.SIZES.FONT * 0.25 }}
-        >
-          936
-        </Text>
-      </Block>
-    </Block>
-  </Block>
-);
+export default function About(props) {
+  return (
+    <Block safe flex>
+      <NavBar
+        title="Sobre"
+        titleStyle={{ alignSelf: 'flex-start' }}
+        leftIconColor={'#9FA5AA'}
+        left={
+          <TouchableOpacity onPress={() => props.navigation.openDrawer()}>
+            <Icon name="menu" family="feather" size={16} color={'#000'} />
+          </TouchableOpacity>
+        }
+        style={Platform.OS === 'android' ? { marginTop: 16 } : null}
+      />
 
-Author.defaultProps = {
-  author: null,
-  title: null,
-  caption: null
-};
-
-Author.propsTypes = {
-  author: PropTypes.string,
-  title: PropTypes.string,
-  caption: PropTypes.string
-};
-
-const About = props => (
-  <Block safe flex>
-    <NavBar
-      title="Sobre"
-      titleStyle={{ alignSelf: 'flex-start' }}
-      leftIconColor={theme.COLORS.MUTED}
-      left={
-        <TouchableOpacity onPress={() => props.navigation.openDrawer()}>
-          <Icon
-            name="menu"
-            family="feather"
-            size={theme.SIZES.BASE}
-            color={theme.COLORS.ICON}
-          />
-        </TouchableOpacity>
-      }
-      style={Platform.OS === 'android' ? { marginTop: theme.SIZES.BASE } : null}
-      right={[
-        <Button
-          key="right-options"
-          color="transparent"
-          style={styles.button}
-          onPress={() => props.navigation.openDrawer()}
-        >
-          <Icon
-            size={theme.SIZES.BASE * 1.0625}
-            name="fire"
-            family="font-awesome"
-            color={theme.COLORS.MUTED}
-          />
-        </Button>,
-        <Button
-          key="right-search"
-          color="transparent"
-          style={styles.button}
-          onPress={() => props.navigation.openDrawer()}
-        >
-          <Icon
-            size={theme.SIZES.BASE * 1.0625}
-            name="leaf"
-            family="font-awesome"
-            color={theme.COLORS.MUTED}
-          />
-        </Button>
-      ]}
-    />
-
-    <ScrollView style={{ flex: 1 }}>
-      <Block flex style={styles.news}>
-        <Image
-          source={{
-            uri:
-              'https://images.unsplash.com/photo-1535649168324-4198731b2252?fit=crop&w=1300&q=80'
-          }}
-          style={styles.articleImage}
-        />
-        <Block style={styles.article}>
-          <Text h4>I would happily watch a TV show about crabs</Text>
-          <Text
-            muted
-            style={[styles.text, { marginVertical: theme.SIZES.BASE * 1.3 }]}
-          >
-            InterBlocking is super star
-          </Text>
-          <Text style={styles.text}>
-            You should totally read this sutuff, like seriously all yo homies
-            love sneak dissing but at least u’re true, right?
-          </Text>
-          <Text muted style={styles.text}>
-            Spicy jalapeno bacon ipsum dolor amet short loin cupidatat est, pork
-            pancetta velit kevin occaecat ipsum aliqua ham tri-tip incididunt.
-          </Text>
-          <Text muted style={styles.text}>
-            Irure sirloin nostrud filet mignon capicola strip steak, sink pork
-            dolore pig shirt ribs. Et pariatur sunt, ribeye esse frankfurter
-            biltong nostrud. Elit do filet mignon turkey, temport pastrami ea
-            bacon. In tritip id cupim tail ham irure. Drumstick esse ut
-            andouille strip steak. Et pariatur sunt, ribeye esse frankfurter
-            biltong nostrud. Elit do filet mignon turkey, temport pastrami ea
-            bacon. In tritip id cupim tail ham irure. Drumstick esse ut
-            andouille strip steak.
-          </Text>
+      <ScrollView style={{ flex: 1 }}>
+        <Block flex style={styles.news}>
+          <Block style={styles.article}>
+            <Text h4>Quem somos? </Text>
+            <Text muted style={[styles.text, { marginVertical: 16 * 1.3 }]}>
+              O aplicativo é uma iniciativa dos alunos do terceiro ano de
+              informática, da escola Plácido Aderaldo Castelo como forma de
+              projeto social.
+            </Text>
+            <Text h4>E pra que serve este app? </Text>
+            <Text muted style={[styles.text, { marginVertical: 16 * 1.3 }]}>
+              Esta aplicação serve para aqueles que querem encontrar um
+              funcionario de forma rápida, clara e objetiva onde pode se ter um
+              contato mais próximo com aquele contratado.
+            </Text>
+          </Block>
         </Block>
-      </Block>
-    </ScrollView>
-  </Block>
-);
+      </ScrollView>
+    </Block>
+  );
+}
 
 const styles = StyleSheet.create({
   article: {
-    marginTop: theme.SIZES.BASE * 1.75
+    marginTop: 2 * 1.75,
+    textAlign: 'center'
   },
   articleImage: {
-    borderRadius: theme.SIZES.BASE / 2,
-    height: theme.SIZES.BASE * 13.75
+    borderRadius: 16 / 2,
+    height: 16 * 13.75
   },
   news: {
-    marginTop: theme.SIZES.BASE / 2,
-    paddingBottom: theme.SIZES.BASE / 2,
+    marginTop: 16 / 2,
+    paddingBottom: 16 / 2,
     justifyContent: 'flex-start',
-    paddingHorizontal: theme.SIZES.BASE
+    paddingHorizontal: 16
   },
   button: {
-    width: theme.SIZES.BASE * 2,
+    width: 16 * 2,
     borderColor: 'transparent'
   },
   author: {
     position: 'absolute',
-    right: theme.SIZES.BASE,
-    left: theme.SIZES.BASE,
+    right: 16,
+    left: 16,
     bottom: Constants.statusBarHeight,
-    backgroundColor: theme.COLORS.WHITE,
+    backgroundColor: '#fff',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
-    elevation: theme.SIZES.BASE / 2
+    elevation: 16 / 2
   },
   text: {
     fontWeight: '400',
-    fontSize: theme.SIZES.FONT * 0.875,
-    lineHeight: theme.SIZES.BASE * 1.25,
+    fontSize: 16 * 0.875,
+    lineHeight: 16 * 1.25,
     letterSpacing: 0.3,
-    marginBottom: theme.SIZES.BASE
+    marginBottom: 16
   }
 });
-
-export default About;

@@ -29,7 +29,7 @@ import Register from './src/screens/SignUp/index';
 import About from './src/screens/About/index';
 
 function GalioDrawer(props) {
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState(false);
   useEffect(() => {
     async function getUserToken() {
       const user = await api.get('/home');
@@ -65,15 +65,6 @@ function GalioDrawer(props) {
             </Text>
           </Block>
         </Block>
-        {/* <Button
-        onPress={async () => {
-          await AsyncStorage.removeItem(TOKEN_KEY);
-          setUser(false);
-          props.navigation.closeDrawer();
-        }}
-      >
-        Sair
-      </Button> */}
       </TouchableOpacity>
       <ScrollView>
         <DrawerItems {...props} />
@@ -170,20 +161,6 @@ const screens = {
       drawerIcon: props => (
         <MenuIcon
           name="sign-in"
-          family="font-awesome"
-          focused={props.focused}
-        />
-      )
-    }
-  },
-
-  Register: {
-    screen: Register,
-    navigationOptions: {
-      drawerLabel: 'Cadastrar',
-      drawerIcon: props => (
-        <MenuIcon
-          name="user-plus"
           family="font-awesome"
           focused={props.focused}
         />

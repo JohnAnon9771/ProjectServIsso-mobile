@@ -92,6 +92,7 @@ export default function Profile({ navigation }) {
             <Button
               onPress={async () => {
                 await AsyncStorage.removeItem(TOKEN_KEY);
+                setUser('1');
                 navigation.navigate('Home');
               }}
             >
